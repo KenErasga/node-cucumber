@@ -1,0 +1,12 @@
+# package directories
+node_modules 
+
+# Environment variables
+.env
+
+# tsc build folder
+build
+
+# report folder
+support/report/*.html
+support/report/*.json
