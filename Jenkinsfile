@@ -19,13 +19,13 @@ node {
     stage('Build') {
         imageTag = "${imageName}"
 
-        buildImage = docker.build(imageTag, "--no-cache .")
-        // sh "docker build . -t ${imageTag} --no-cache"
+        // buildImage = docker.build(imageTag, "--no-cache .")
+        sh "sudo docker build . -t ${imageTag} --no-cache"
     }
     stage('Testing') {
         def failed = false
         try {
-            sh "docker run - ${imageTag}"
+            sh "sudo docker run - ${imageTag}"
         }
         catch(Exception ex) {
             println 'We have tests that failed!'
