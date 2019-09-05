@@ -11,6 +11,7 @@ def test = null
 def version = 'latest'
 
 node {
+    agent { dockerfile true }
     stage('Checkout') {
         // cleanWs()
 
@@ -20,12 +21,12 @@ node {
         imageTag = "${imageName}"
 
         // buildImage = docker.build(imageTag, "--no-cache .")
-        sh "sudo docker build . -t ${imageTag} --no-cache"
+        sh "docker build . -t ${imageTag} --no-cache"
     }
     stage('Testing') {
         def failed = false
         try {
-            sh "sudo docker run - ${imageTag}"
+            sh "docker run - ${imageTag}"
         }
         catch(Exception ex) {
             println 'We have tests that failed!'
