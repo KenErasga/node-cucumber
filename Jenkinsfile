@@ -1,3 +1,5 @@
+agent { dockerfile true }
+
 def imageName = "testing"
 
 def imageTag = null
@@ -11,7 +13,6 @@ def test = null
 def version = 'latest'
 
 node {
-    agent { dockerfile true }
     stage('Checkout') {
         // cleanWs()
 
