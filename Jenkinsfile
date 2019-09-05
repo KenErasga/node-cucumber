@@ -17,9 +17,9 @@ node {
         checkout scm
     }
     stage('Build') {
-        imageTag = "${imageName}:${version}"
+        imageTag = "${imageName}"
 
-        buildImage = docker.build(imageTag, "--no-cache .")
+        buildImage = docker.build("." ,imageTag, "--no-cache")
     }
     stage('Testing') {
         def failed = false
