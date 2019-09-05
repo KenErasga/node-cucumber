@@ -18,6 +18,10 @@ COPY /steps/ /install/steps/
 
 COPY /support/ /install/support/
 
+RUN curl -fsSL https://get.docker.com -o get-docker.sh
+
+RUN sh get-docker.sh
+
 RUN npm install
 
 RUN npm run build

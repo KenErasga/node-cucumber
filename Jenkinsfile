@@ -12,7 +12,7 @@ def version = 'latest'
 
 node {
     stage('Checkout') {
-        cleanWs()
+        // cleanWs()
 
         checkout scm
     }
