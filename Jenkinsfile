@@ -19,8 +19,8 @@ node {
     stage('Build') {
         imageTag = "${imageName}"
 
-        // buildImage = docker.build(imageTag, "--no-cache")
-        sh "docker build . -t ${imageTag} --no-cache"
+        buildImage = docker.build(imageTag, "--no-cache .")
+        // sh "docker build . -t ${imageTag} --no-cache"
     }
     stage('Testing') {
         def failed = false
