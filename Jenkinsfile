@@ -25,7 +25,7 @@ node {
     stage('Testing') {
         def failed = false
         try {
-            sh "docker run - ${imageTag}"
+            sh "docker start ${imageTag}"
         }
         catch(Exception ex) {
             println 'We have tests that failed!'
