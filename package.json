@@ -9,7 +9,7 @@
     "test-report": "tsc && node_modules\\.bin\\cucumber-js features/*.feature -p report",
     "test-report-docker": "tsc && node_modules//.bin//cucumber-js features/*.feature -p report",
     "report": "node ./build/support/report/reportGenerator.js",
-    "report-docker": "node build/support/report/reportGenerator.docker..js",
+    "report-docker": "node build/support/report/reportGenerator.docker.js",
     "build": "tsc"
   },
   "repository": {
