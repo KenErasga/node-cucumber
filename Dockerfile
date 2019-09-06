@@ -12,7 +12,7 @@ COPY tsconfig.json /install/
 
 COPY cucumber.js /install/
 
-COPY /features/ /install/test/
+COPY /features/ /install/features/
 
 COPY /steps/ /install/steps/
 
