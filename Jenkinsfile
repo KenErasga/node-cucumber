@@ -33,6 +33,17 @@ node {
         }
         dockerContainerId = sh(script: "docker ps -aqf \"ancestor=${imageName}:latest\"", returnStdout: true).trim()
         sh "docker cp ${dockerContainerId}:/app/support/report/cucumber_report.html test_report.html"
+        archive (includes: '*.html')
+
+        publishHTML (target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: true,
+            reportDir: '.',
+            reportFiles: 'test_report.html',
+            reportName: "RCov Report"
+        ])
+
         test = sh(script: "docker inspect ${dockerContainerId} --format='{{.State.ExitCode}}'", returnStdout: true).trim()
         sh "docker rm ${dockerContainerId}"
         if(failed) {
