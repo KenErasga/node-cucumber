@@ -33,8 +33,9 @@ node {
         }
         dockerContainerId = sh(script: "docker ps -aqf \"ancestor=${imageName}:latest\"", returnStdout: true).trim()
         sh "docker cp ${dockerContainerId}:/app/support/report/cucumber_report.html test_report.html"
-
-        cucumber "support/report/cucumber_report.json"
+        sh "docker cp ${dockerContainerId}:/app/support/report/cucumber_report.json test_report.json"
+        
+        cucumber "test_report.json"
 
         archive (includes: '*.html')
 
