@@ -37,7 +37,6 @@ node {
 
         cucumber "test_report.json"
 
-        sh "aws s3 https://bucket/   test_report.html"
         test = sh(script: "docker inspect ${dockerContainerId} --format='{{.State.ExitCode}}'", returnStdout: true).trim()
         sh "docker rm ${dockerContainerId}"
         if(failed) {
