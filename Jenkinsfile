@@ -1,27 +1,20 @@
-def imageName = "testing"
+def imageName = "example-testing"
 
 def imageTag = null
 
-def buildImage = null
-
 def dockerContainerId = null
-
-def test = null
 
 def version = 'latest'
 
 node {
-    stage('Checkout') {
+    stage('Example Testing') {
         cleanWs()
 
         checkout scm
-    }
-    stage('Build') {
+
         imageTag = "${imageName}"
 
         sh "docker build . -t ${imageTag} --no-cache"
-    }
-    stage('Testing') {
         def failed = false
         try {
             sh "docker run ${imageTag}"
@@ -32,13 +25,15 @@ node {
         }
         dockerContainerId = sh(script: "docker ps -aqf \"ancestor=${imageName}:latest\"", returnStdout: true).trim()
 
-        sh "docker cp ${dockerContainerId}:/app/support/report/cucumber_report.html test_report.html"
-        sh "docker cp ${dockerContainerId}:/app/support/report/cucumber_report.json test_report.json"
+        sh "docker cp ${dockerContainerId}:/app/support/report/cucumber_report.html example_report.html"
+        sh "docker cp ${dockerContainerId}:/app/support/report/cucumber_report.json example_report.json"
 
         cucumber "test_report.json"
 
-        test = sh(script: "docker inspect ${dockerContainerId} --format='{{.State.ExitCode}}'", returnStdout: true).trim()
+        sh "aws s3 cp test_report s3//" // add to s3 bucket
+
         sh "docker rm ${dockerContainerId}"
+
         if(failed) {
             sh "exit 1"
         }
